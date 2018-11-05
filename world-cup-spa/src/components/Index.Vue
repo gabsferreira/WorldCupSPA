@@ -1,20 +1,20 @@
 <template>
-<div>
-    <b-jumbotron header="World Cup" lead="Bootstrap 4 Components for Vue.js 2" >
-      <p>For more information visit website</p>
-    </b-jumbotron>
-    <p>{{ this.selectedMovies.length }} de 8 filmes selecionados</p> <b-btn variant="primary" href="#">More Info</b-btn>
-    <b-card-group columns>
-        <div v-for="(movie, key) in movies">
-          <transition name="movie-fade">
-            <b-card v-bind:class="{'selected': $_isSelected(movie)}" :key="key" @click="$_toggleItem(movie)">
-              <p>{{ movie.titulo }}</p>
-              <p>{{ movie.ano }}</p>
-            </b-card>
-          </transition>
-        </div>
-    </b-card-group>
-</div>
+    <div>
+        <b-jumbotron header="World Cup" lead="Bootstrap 4 Components for Vue.js 2" >
+        <p>For more information visit website</p>
+        </b-jumbotron>
+        <p>{{ this.selectedMovies.length }} de 8 filmes selecionados</p> <b-btn variant="primary" href="#">More Info</b-btn>
+        <b-card-group columns>
+            <div v-for="(movie, key) in movies">
+            <transition name="movie-fade">
+                <b-card v-bind:class="{'selected': $_isSelected(movie)}" :key="key" @click="$_toggleItem(movie)">
+                <p>{{ movie.titulo }}</p>
+                <p>{{ movie.ano }}</p>
+                </b-card>
+            </transition>
+            </div>
+        </b-card-group>
+    </div>
 </template>
 
 
