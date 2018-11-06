@@ -1,9 +1,8 @@
 <template>
     <div>
-        <b-jumbotron header="World Cup" lead="Bootstrap 4 Components for Vue.js 2" >
-        <p>For more information visit website</p>
+        <b-jumbotron header="World Cup" lead="Selecione 8 times para começar a competição!" >
         </b-jumbotron>
-        <p>{{ this.selectedMovies.length }} de 8 filmes selecionados</p> <b-btn @click="$_sendMovies()" variant="primary">More Info</b-btn>
+        <p>{{ this.selectedMovies.length }} de 8 filmes selecionados</p> <b-btn :class="{ disabled: isDisabled }" @click="$_sendMovies()" variant="primary">Roda copa!</b-btn>
         <b-card-group columns>
             <div v-for="(movie, key) in movies">
             <transition name="movie-fade">
@@ -28,6 +27,12 @@ export default {
     }
   },
 
+  computed: {
+    isDisabled () {
+        return this.selectedMovies.length != 8;
+    }
+  },
+
   created() {
     let promise = this.$http.get('https://localhost:44303/api/movie');
 
@@ -43,8 +48,6 @@ export default {
             var id = res.headers.get('location');
             console.log(id);
             this.$router.push('/Cup/'+id);
-            
-            // window.location = res.headers.get('location');
       });
     },
 

@@ -1,13 +1,16 @@
 <template>
     <div>
-        <b-jumbotron header="World Cup" lead="Bootstrap 4 Components for Vue.js 2" >
-        <p>For more information visit website</p>
+        <b-jumbotron header="World Cup" lead="Aqui estão os campeões!" >
         </b-jumbotron>
         <b-card-group columns>
             <div>
                 <b-card>
-                <p>{{ this.cup.champion }}</p>
-                <p>{{ this.cup.secondPlace }}</p>
+                    <p>{{ this.cup.champion }}</p>
+                </b-card>
+            </div>
+            <div>
+                <b-card>
+                    <p>{{ this.cup.secondPlace }}</p>
                 </b-card>
             </div>
         </b-card-group>
