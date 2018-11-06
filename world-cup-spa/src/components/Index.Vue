@@ -3,7 +3,7 @@
         <b-jumbotron header="World Cup" lead="Bootstrap 4 Components for Vue.js 2" >
         <p>For more information visit website</p>
         </b-jumbotron>
-        <p>{{ this.selectedMovies.length }} de 8 filmes selecionados</p> <b-btn variant="primary" href="#">More Info</b-btn>
+        <p>{{ this.selectedMovies.length }} de 8 filmes selecionados</p> <b-btn @click="$_sendMovies()" variant="primary">More Info</b-btn>
         <b-card-group columns>
             <div v-for="(movie, key) in movies">
             <transition name="movie-fade">
@@ -29,13 +29,25 @@ export default {
   },
 
   created() {
-    let promise = this.$http.get('https://worldcupapi-gabs.azurewebsites.net/api/movie');
+    let promise = this.$http.get('https://localhost:44303/api/movie');
 
     promise.then(res => res.json())
       .then(movies => this.movies = movies, err => console.log(err));
   },
 
   methods: {
+    $_sendMovies() {
+
+      this.$http.post('https://localhost:44303/api/cup', this.selectedMovies )
+        .then(function (res) {
+            var id = res.headers.get('location');
+            console.log(id);
+            this.$router.push('/Cup/'+id);
+            
+            // window.location = res.headers.get('location');
+      });
+    },
+
     $_toggleItem(movie) {
       
       if(this.selectedMovies.includes(movie))
@@ -63,14 +75,4 @@ export default {
 .selected {
   background-color: rgba( 0, 0, 0, .5);
 }
-
-.movie-fade-enter, movie-fade-leave-active {
-  opacity: 0;
-}
-
-.movie-fade-enter-active, movie-fade-leave-active {
-  transition: opacity .4s;
-}
-
-
 </style>
