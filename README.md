@@ -9,4 +9,4 @@ Download it and run:
 
 Then:
 
-`npm run`
+`npm run dev`
