@@ -1,22 +1,23 @@
 <template>
     <div>
-        <b-jumbotron header="World Cup" lead="Aqui estão os campeões!" >
-        </b-jumbotron>
-        <b-card-group columns>
-            <div>
-                <b-card>
-                    <p>{{ this.cup.champion }}</p>
-                </b-card>
+        <b-jumbotron header="Copa do mundo de filmes" lead="Aqui estão os vencedores!" >
+          </b-jumbotron>
+        <b-col>
+            <div class="input-group-lg input-group">
+                <span class="input-group-text">1º </span>
+            <div class="input-group-prepend">
             </div>
-            <div>
-                <b-card>
-                    <p>{{ this.cup.secondPlace }}</p>
-                </b-card>
+                <p class="form-control">{{ this.cup.champion }}</p>
             </div>
-        </b-card-group>
+            <div class="input-group-lg input-group">
+                <span class="input-group-text">2º </span>
+            <div class="input-group-prepend">
+            </div>
+                <p class="form-control">{{ this.cup.secondPlace }}</p>
+            </div>
+        </b-col>
     </div>
 </template>
-
 
 <script>
 export default {
@@ -28,7 +29,7 @@ export default {
   },
 
   created() {
-    let promise = this.$http.get('https://localhost:44303/api/cup/' + this.$route.params.id);
+    let promise = this.$http.get('https://worldcupapi-gabs.azurewebsites.net/api/cup/' + this.$route.params.id);
 
     promise.then(res => res.json())
       .then(cup => this.cup = cup, err => console.log(err));

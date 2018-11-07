@@ -1,18 +1,28 @@
 <template>
     <div>
-        <b-jumbotron header="World Cup" lead="Selecione 8 times para começar a competição!" >
-        </b-jumbotron>
-        <p>{{ this.selectedMovies.length }} de 8 filmes selecionados</p> <b-btn :class="{ disabled: isDisabled }" @click="$_sendMovies()" variant="primary">Roda copa!</b-btn>
-        <b-card-group columns>
+      <b-jumbotron header="Copa do mundo de filmes" lead="Selecione 8 times para começar a competição!" >
+          </b-jumbotron>
+      <b-row class="mb-3">
+          <b-col class="col-6 text-left">
+            <p>{{ this.selectedMovies.length }} de 8 filmes selecionados</p> 
+          </b-col>
+          <b-col class="col-6 text-right">
+            <b-btn class="btn btn-danger btn-lg" :class="{ disabled: isDisabled }" @click="$_sendMovies()" variant="primary">Rodar copa!</b-btn>
+          </b-col>
+      </b-row>
+      <b-row>
+        <div class="movie-columns col">
             <div v-for="(movie, key) in movies">
-            <transition name="movie-fade">
-                <b-card v-bind:class="{'selected': $_isSelected(movie)}" :key="key" @click="$_toggleItem(movie)">
+                <b-card-body>
+                <b-card style="height: 130px; cursor: pointer;" v-bind:class="{'selected': $_isSelected(movie)}" :key="key" @click="$_toggleItem(movie)">
                 <p>{{ movie.titulo }}</p>
                 <p>{{ movie.ano }}</p>
                 </b-card>
-            </transition>
+                </b-card-body>
             </div>
-        </b-card-group>
+        </div>
+      </b-row>
+      <br/>
     </div>
 </template>
 
@@ -34,7 +44,7 @@ export default {
   },
 
   created() {
-    let promise = this.$http.get('https://localhost:44303/api/movie');
+    let promise = this.$http.get('https://worldcupapi-gabs.azurewebsites.net/api/movie');
 
     promise.then(res => res.json())
       .then(movies => this.movies = movies, err => console.log(err));
@@ -43,10 +53,9 @@ export default {
   methods: {
     $_sendMovies() {
 
-      this.$http.post('https://localhost:44303/api/cup', this.selectedMovies )
+      this.$http.post('https://worldcupapi-gabs.azurewebsites.net/api/cup', this.selectedMovies )
         .then(function (res) {
             var id = res.headers.get('location');
-            console.log(id);
             this.$router.push('/Cup/'+id);
       });
     },
@@ -76,6 +85,10 @@ export default {
 <style>
 
 .selected {
-  background-color: rgba( 0, 0, 0, .5);
+  background-color: rgba(151, 255, 255, 0.9);
+}
+
+.movie-columns {
+  column-count: 4;
 }
 </style>
